@@ -1,0 +1,37 @@
+Reto 1: Realizando operaciones con tablas
+1. Objetivos 🎯
+Realizar operaciones SQL para administrar tablas
+Crear tablas acorde a los datos
+2. Requisitos 📋
+Servidor MySQL instalado
+3. Desarrollo 🚀
+Definir los campos y tipos de datos para la tabla movies haciendo uso de los archivos movies.dat y README.
+Crear la tabla movies (recuerda usar el mismo nombre del archivo sin la extensión para vincular nombres de tablas con archivos).
+CREATE TABLE IF NOT EXISTS movies (
+   id INT PRIMARY KEY, 
+   title VARCHAR(80), 
+   generos VARCHAR(80)
+); 
+
+Definir los campos y tipos de datos para la tabla ratings haciendo uso de los archivos ratings.dat y README.
+Crear la tabla ratings (recuerda usar el mismo nombre del archivo sin la extensión para vincular nombres de tablas con archivos)
+
+CREATE TABLE IF NOT EXISTS ratings (
+   userid INT, 
+   movieid INT, 
+   rating INT, 
+   time_stamp BIGINT
+);
+
+Reto 2: Importando datos a una tabla en formato CSV
+1. Objetivos 🎯
+Aplicar el procedimiento para importación de datos a una tabla
+Validar que la correcta importación de los datos
+2. Requisitos 📋
+Servidor MySQL instalado
+3. Desarrollo 🚀
+Usando como base el archivo movies.dat, limpiarlo e importar los datos en la tabla movies creada en el Reto 1.
+https://drive.google.com/file/d/1p_1IvzD5q9e_Z5PGCBaq5N6meIJGDzBz/view?usp=sharing
+Usando como base el archivo ratings.dat, limpiarlo e importar los datos en la tabla ratings creada en el Reto 2.
+https://drive.google.com/file/d/1O-YizlFW3h46u2MViCmagMevSPyRhsoc/view?usp=sharing
+
