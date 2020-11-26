@@ -1,0 +1,93 @@
+Reto 1: Agrupamientos
+1. Objetivos 🎯
+Poner en práctica el uso de agrupamientos.
+2. Requisitos 📋
+MongoDB Compass instalado.
+3. Desarrollo 🚀
+Con base en el ejemplo 1, modifica el agrupamiento para que muestre el costo promedio por habitación por país de las propiedades de tipo casa.
+
+
+[{
+    $match: {
+        property_type: 'House',
+        bedrooms: {
+            $gte: 1
+        }
+    }
+}, {
+    $addFields: {
+        costo_recamara: {
+            $divide: ["$price", "$bedrooms"]
+        }
+    }
+}, {
+    $group: {
+        _id: "$address.country",
+        recamaras: {
+            $sum: 1
+        },
+        total: {
+            $sum: "$costo_recamara"
+        }
+    }
+}, {
+    $addFields: {
+        pais: "$_id",
+        costo_promedio: {
+            $divide: ["$total", "$recamaras"]
+        }
+    }
+}, {
+    $project: {
+        _id: 0,
+        pais: 1,
+        costo_promedio: 1
+    }
+}]
+
+
+Reto 2: Asociación de colecciones
+1. Objetivos 🎯
+Proyectar columnas sobre distintos documentos para repasar algunos conceptos.
+2. Requisitos 📋
+MongoDB Compass instalado.
+3. Desarrollo 🚀
+Usando las colecciones comments y users, 
+se requiere conocer el correo y contraseña de cada persona que realizó un comentario. 
+Construye un pipeline que genere como resultado estos datos.
+
+[{
+    $lookup: {
+        from: 'users',
+        localField: 'name',
+        foreignField: 'name',
+        as: 'usuario'
+    }
+}, {
+    $addFields: {
+        usuario_objeto: {
+            $arrayElemAt: ["$usuario", 0]
+        },
+        usuario_password: "$usuario_objeto.password"
+
+    }
+}, {
+    $project: {
+        _id: 0,
+        name: 1,
+        email: 1,
+        usuario_password: 1
+    }
+}]
+
+Reto 3: Generación de vistas
+1. Objetivos 🎯
+Proyectar columnas sobre distintos documentos para repasar algunos conceptos.
+2. Requisitos 📋
+MongoDB Compass instalado.
+3. Desarrollo 🚀
+Usando el pipeline que generaste en el Reto 2, genera la vista correspondiente.
+
+Para finalizar, elimina todas las vistas que generaste durante esta sesión. En la siguiente sesión, aprenderás a tener tu propio servidor para generar tus propias vistas. :)
+
+https://drive.google.com/file/d/1qwUTBCZlSdxkcRkXBzE6diNK52_HOQa1/view?usp=sharing
